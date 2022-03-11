@@ -18,7 +18,7 @@
 						<p class="display-3  font-weight-bold"><?php include 'backend/count_new_issues.p.php';?></p>
 						<div class=" text-left">
 							<h4 class="mb-0 text-uppercase">new issues</h6>
-							<p class="mb-0 text-light">The total number of new unresolved or unassigned issues of the day</p>
+							<p class="mb-0 text-light">The total number of new but unresolved or unassigned issues of the day</p>
 						</div>
 						
 					</a>
@@ -49,25 +49,25 @@
 			</div>
 			<div class="row">
 				<div class="col text-light p-2">
-					<a class="container btn btn-primary rounded-3 d-flex gap-3 p-4" href="i_users.php?site=Inactive%20Users&page=1" role="button"
+					<a class="container btn btn-primary rounded-3 d-flex gap-3 p-4" href="i_users.php?site=Free%20Employees&page=1" role="button"
 					style="margin-bottom:4px;white-space: normal;">
 						<p class="display-3  font-weight-bold"><?php
 							include 'backend/idle_users.p.php';
 						?></p>
 						<div class=" text-left">
-							<h4 class="mb-0 text-uppercase">Inactive employees</h6>
+							<h4 class="mb-0 text-uppercase">free employees</h6>
 							<p class="mb-0 text-light">The number of users with no assigned tasks</p>
 						</div>
 					</a>
 				</div>
 				<div class="col text-light p-2">
-					<a class="container btn btn-primary rounded-3 d-flex gap-3 p-4" href="u_tasks.php?site=Unfinished%20Tasks&page=1" role="button"
+					<a class="container btn btn-primary rounded-3 d-flex gap-3 p-4" href="u_tasks.php?site=Pending%20Tasks&page=1" role="button"
 					style="margin-bottom:4px;white-space: normal;">
 						<p class="display-3  font-weight-bold"><?php 
 							include 'backend/count_unfinished.p.php';
 						?></p>
 						<div class=" text-left">
-							<h4 class="mb-0 text-uppercase">unfinished tasks</h6>
+							<h4 class="mb-0 text-uppercase">pending tasks</h6>
 							<p class="mb-0 text-light">The number of unresolved tasks of employees</p>
 						</div>
 					</a>

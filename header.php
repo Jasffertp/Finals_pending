@@ -64,12 +64,12 @@
 		
 		
 		  <li class="mb-1">
-			<a class="btn btn-toggle align-items-center rounded" href="index.php?site=Dashboard&page=1">
+			<a class="btn btn align-items-center rounded" href="index.php?site=Dashboard&page=1">
 			  Dashboard
 			</a>
 		  </li>
 		  <li class="mb-1">
-			<a class="btn btn-toggle align-items-center rounded" href="reports.php?site=Reports&page=1&time=day">
+			<a class="btn btn align-items-center rounded" href="reports.php?site=Reports&page=1&time=day">
 			  Reports
 			</a>
 		  <!--
@@ -88,7 +88,7 @@
 		  </li>
 		  
 		  <li class="mb-1">
-		  <a class="btn btn-toggle align-items-center rounded" href="issues.php?site=Issues&page=1&time=month">
+		  <a class="btn align-items-center rounded" href="issues.php?site=Issues&page=1&time=month">
 			  Issues
 			</a>
 		  <!--
@@ -107,7 +107,7 @@
 		  </li>
 		  
 		  <li class="mb-1">
-			<a class="btn btn-toggle align-items-center rounded" href="equipment.php?site=Equipment&page=1">
+			<a class="btn align-items-center rounded" href="equipment.php?site=Equipment&page=1">
 			  Equipment Inventory
 			</a>
 			<!--
@@ -139,13 +139,13 @@
 				?></span></a></li>
 				<li><a href="assign_new_task.php?site=Assign%20new%20task" class="link-dark rounded">Assign New Task</a></li>
 				<?php if($_SESSION['role'] == "Head"){?>
-				<li><a href="assign_issue_reports.php?site=Unassigned%20Reports" class="link-dark rounded">Assign Issue Report</a></li>
+				<li><a href="assign_issue_reports.php?site=Unassigned%20Reports&page=1" class="link-dark rounded">Assign Issue Report</a></li>
 				<?php	}
 				?>
 				<li><a href="add_new_equipment.php?site=Add%20New%20Equipment" class="link-dark rounded">Add New Equipment</a></li>
-				<li><a href="assign_issue.php?site=Report%20Issue" class="link-dark rounded">Create Issue Report</a></li>
+				<li><a href="assign_issue.php?site=Create%20Issue%20Report" class="link-dark rounded">Create Issue Report</a></li>
 				<?php if($_SESSION['role'] == "Head"){?>
-				<li><a href="users.php?page=1&site=Users" class="link-dark rounded">Manage Users</a></li>
+				<li><a href="users.php?site=Users&page=1" class="link-dark rounded">Manage Users</a></li>
 				<?php	}
 				?>
 			  </ul>
@@ -187,9 +187,9 @@
 			
 			<ul class="nav nav-pills flex-column mb-auto">
 			  <li class="nav-item">
-				<a href="tasks.php?site=Tasks&page=1" class="nav-link <?php 
+				<a href="tasks.php?site=My%20Tasks&page=1" class="nav-link <?php 
 					if(isset($_GET['site'])){
-						if($_GET['site'] == "Tasks"){
+						if($_GET['site'] == "My Tasks"){
 							echo 'active';
 						}
 					}
@@ -199,9 +199,9 @@
 				</a>
 			  </li>
 			  <li>
-				<a href="technician_reports.php?site=Reports&page=1" class="nav-link <?php 
+				<a href="technician_reports.php?site=My%20Reports&page=1" class="nav-link <?php 
 					if(isset($_GET['site'])){
-						if($_GET['site'] == "Reports"){
+						if($_GET['site'] == "My Reports"){
 							echo 'active';
 						}
 					}else{
@@ -213,9 +213,9 @@
 				</a>
 			  </li>
 			  <li>
-				<a href="technician_reports.php?site=Issue%20Reports&page=1" class="nav-link <?php 
+				<a href="technician_reports.php?site=My%20Issues%20Reported&page=1" class="nav-link <?php 
 					if(isset($_GET['site'])){
-						if($_GET['site'] == "Issue Reports"){
+						if($_GET['site'] == "My Issues Reported"){
 							echo 'active';
 						}
 					}else{

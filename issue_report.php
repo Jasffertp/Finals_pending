@@ -19,9 +19,17 @@
 		$row = mysqli_fetch_assoc($result);
 		
 	}
+	
+	if($_GET['site'] == "Issue Report"){
 ?>
-
-<div class="container-fluid py-4">
+<head>
+	<style>
+		#main_content {
+			padding: 7%;
+		}
+	</style>
+</head>
+<div class="container-fluid py-4" id="main_content">
 	<h2><?php echo $row['issue'], " : equipment ", $row['equipment_name'];?><h2>
 	<hr class="rounded">
 	<h5>Date issue created: <?php echo $row['date_created']?></h5>
@@ -317,3 +325,5 @@
 		}, 3000)
 	});
 </script>
+
+	<?php } ?>

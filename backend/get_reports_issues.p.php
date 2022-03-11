@@ -7,14 +7,14 @@
 		$min = 0;
 	}
 	
-	if($_GET['site'] == "Reports"){
+	if($_GET['site'] == "My Reports"){
 		$sql = "SELECT report_id, reports.machine_id, reports.task, reports.date_created, reports.task_due, reports.date_submitted, reports.assigned_user, reports.report_status, equipment.equipment_id, equipment.equipment_name, equipment.location_id, location.location_id, location.floor,location.room_number, users.users_id, users.username 
 		FROM `reports`, `users`,`location`,`equipment` 
 		WHERE users.users_id = ".$_SESSION['userId']." AND reports.assigned_user = ".$_SESSION['userId']." AND equipment.equipment_id = reports.machine_id AND equipment.location_id = location.location_id AND reports.report_status = 'done'
-		ORDER BY reports.date_created DESC 
+		ORDER BY reports.date_submitted DESC 
 		LIMIT ".$min.", 10";
-	}else if($_GET['site'] == "Issue Reports"){
-		$sql = "SELECT issue.issue_id, issue.machine_id, issue.issue, issue.issue_status, issue.assigned_to, issue.date_created, issue.date_due, issue.date_issue_resolved, equipment.equipment_id, equipment.equipment_name, equipment.location_id, location.location_id, location.floor,location.room_number, users.users_id, users.username 
+	}else if($_GET['site'] == "My Issues Reported"){
+		$sql = "SELECT issue.issue_id, issue.machine_id, issue.issue, issue.issue_status, issue.assigned_to, issue.date_created, issue.date_due, issue.date_issue_resolved, equipment.equipment_id, equipment.equipment_name, equipment.location_id, location.location_id, location.floor,location.room_number, users.users_id, users.username, issue.assigned_to 
 		FROM `issue`, `users`,`location`,`equipment` 
 		WHERE users.users_id = ".$_SESSION['userId']." AND issue.submitted_by = ".$_SESSION['userId']." AND equipment.equipment_id = issue.machine_id AND equipment.location_id = location.location_id
 		ORDER BY issue.date_created DESC 
@@ -28,11 +28,11 @@
 	}else{
 		$result = mysqli_query($conn, $sql);
 		
-		if($_GET['site'] == "Reports"){
+		if($_GET['site'] == "My Reports"){
 			if($result->num_rows > 0){
 				while($row = mysqli_fetch_array($result)){
 					?>
-					<tr role="button" data-href="index.php?page=1&site=Tasks">
+					<tr role="button" data-href="viewPastReports.php?r=<?php echo $row['report_id'];?>&e=<?php echo $row['machine_id'];?>&site=My%20Past%20Reports">
 						<td><?php echo $row['task'];?></td>
 						<td><?php echo $row['equipment_name'];?></td>
 						<td><?php echo $row['floor'];?></td>
@@ -41,7 +41,6 @@
 						<td><?php echo $row['task_due'];?></td>
 						<td><?php echo $row['date_submitted'];?></td>
 						<td><?php echo 'Resolved';?></td>
-						<td><i class="fas fa-file-edit"></i> <i class="fas fa-trash-alt"></i></td>
 					</tr>
 				<?php
 				}
@@ -52,7 +51,7 @@
 				</tr>
 			<?php
 			}
-		}else if($_GET['site'] == "Issue Reports"){
+		}else if($_GET['site'] == "My Issues Reported"){
 			if($result->num_rows > 0){
 				while($row = mysqli_fetch_array($result)){
 					?>
@@ -74,18 +73,25 @@
 						<?php 
 						
 						if($row['issue_status'] || !is_null($row['assigned_to'])){
-							echo 'Issue has been assigned';
+							//getting the username of specific record
+							$sql_user = "SELECT * FROM `users` WHERE users_id = ".$row['assigned_to']."";
+	
+							if(!mysqli_stmt_prepare($stmt, $sql_user)){
+								echo 'error connecting to database users';
+							}else{	
+							$result_user = mysqli_query($conn, $sql_user);
+							$row_user = mysqli_fetch_assoc($result_user);
+							}
+							echo $row_user['username'];
 						}else{
-							?>
-							<!--<a href="assign_issue.php?edit=true&id=<?php echo $row['issue_id'];?>" type="button" class="btn btn-primary btn-sm"><i class="fas fa-edit h6 "></i></a> -->
-							<a type="button" class="btn btn-danger btn-sm " data-target="#<?php echo $row['issue_id'];?>" data-toggle="modal"><i class="fas fa-trash-alt h6" style="font-color:red;"></i></a><?php
+							echo 'To be assigned';
 						}
 							?> 
 						
 						</td>
 					</tr>
-					
-					<div class="modal fade" id="<?php echo $row['issue_id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+				<div class="modal fade" id="<?php echo $row['issue_id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog" role="document">
 					<div class="modal-content">
 					  <div class="modal-header">
